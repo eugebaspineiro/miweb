@@ -22,6 +22,12 @@ const Projects = () => {
         })
   }, []);
 
+  //filtrado de proyectos
+
+  const filteredProjects = projects.filter(
+    (project) => project.category === categorySelected
+  );
+
 
 
 
@@ -31,14 +37,23 @@ const Projects = () => {
         <h3>Proyectos</h3>
         <p>Del concepto a la realidad</p>
       </div>
+
       <div className="projects_button">
-        <p>Diseño</p>
+        <p
+        className={categorySelected === "ux-ui" ? "active" : ""}
+        onClick={()=> setCategorySelected("ux-ui")}>
+          Diseño
+        </p>
         <p>|</p>
-        <p>Frontend</p>
+        <p
+        className={categorySelected === "dev" ? "active" : ""}
+        onClick={()=> setCategorySelected("dev")}>
+          Frontend
+        </p>
       </div>
       <div>
         {
-          projects.map((project)=>(
+          filteredProjects.map((project)=>(
             <div>
               <img src={project.image} alt="" />
               <h3>{project.title}</h3>
