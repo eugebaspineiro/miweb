@@ -1,6 +1,8 @@
 import "./projects.css";
 import { useState, useEffect } from "react";
 import { getProjects } from "../../data/data";
+import Projectmap from "./Projectmap.jsx";
+import CategoryFilter from "./Categoryfilter.jsx";
 
 
 const Projects = () => {
@@ -33,36 +35,18 @@ const Projects = () => {
 
   return (
     <div className="projects_body">
+      
       <div className="projects_title">
         <h3>Proyectos</h3>
         <p>Del concepto a la realidad</p>
       </div>
 
-      <div className="projects_button">
-        <p
-        className={categorySelected === "ux-ui" ? "active" : ""}
-        onClick={()=> setCategorySelected("ux-ui")}>
-          Diseño
-        </p>
-        <p>|</p>
-        <p
-        className={categorySelected === "dev" ? "active" : ""}
-        onClick={()=> setCategorySelected("dev")}>
-          Frontend
-        </p>
-      </div>
-      <div>
-        {
-          filteredProjects.map((project)=>(
-            <div>
-              <img src={project.image} alt="" />
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-            </div>
+      <CategoryFilter 
+        categorySelected={categorySelected} 
+        setCategorySelected={setCategorySelected} 
+      />
 
-          ))
-        }
-      </div>
+      <Projectmap projects = {filteredProjects} />
     </div>
   )
 }
