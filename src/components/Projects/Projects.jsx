@@ -1,19 +1,28 @@
 import "./projects.css";
-import { getProyects } from "../../data/data";
+import { useState, useEffect } from "react";
+import { getProjects } from "../../data/data";
 
 
 const Projects = () => {
 
-  getProyects()
-  .then ((response)=> {
-    console.log(response)
-  })
-  .catch((error)=>{
-    console.error(error)
-  })
-  .finally(()=> {
-    console.log("finalizo la promesa")
-  })
+  const [ projects, setProjects] = useState([]) /* los corchetes porque voy a consumir un array */
+  const [ categorySelected, setCategorySelected] = useState("ux-ui") /* para filtrar por categoria diseño y frontend */
+
+  useEffect( ()=>{
+
+      getProjects()
+        .then ((dataProjects)=> {
+          setProjects(dataProjects)
+        })
+      .catch((error)=>{
+        console.error(error)
+        })
+      .finally(()=> {
+        console.log("finalizo la promesa")
+        })
+  }, []);
+
+
 
 
   return (
@@ -26,6 +35,18 @@ const Projects = () => {
         <p>Diseño</p>
         <p>|</p>
         <p>Frontend</p>
+      </div>
+      <div>
+        {
+          projects.map((project)=>(
+            <div>
+              <img src={project.image} alt="" />
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+            </div>
+
+          ))
+        }
       </div>
     </div>
   )
