@@ -1,7 +1,19 @@
 import "./projects.css";
+import { getProyects } from "../../data/data";
 
 
 const Projects = () => {
+
+  getProyects()
+  .then ((response)=> {
+    console.log(response)
+  })
+  .catch((error)=>{
+    console.error(error)
+  })
+  .finally(()=> {
+    console.log("finalizo la promesa")
+  })
 
 
   return (
